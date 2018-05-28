@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 
@@ -102,21 +104,29 @@ public class ClubController {
         else
             return new ResponseObject(null, 2);
     }
-    @GetMapping("/images/{photo}.{suf}")
-    public ResponseEntity<?> downloadPostPhoto(@PathVariable("photo") String photo, @PathVariable("suf") String suf) throws IOException {
+    @GetMapping("/images/{username}/{password}")
+    public ResponseObject downloadPhotos(@PathVariable("username") String username, @PathVariable("password") String password) throws IOException {
+        User user1 = UserService.findByUserName(username);
+        Club club = user1.getClub();
+        if (user1.getPassWord().equals(password)) {
+            ArrayList<byte[]> arr = new ArrayList<>();
+            List<Image> images = club.getImages();
+            try {
+                for(Image image:images){
+                    InputStream in = FileUtils.openInputStream(new File("src/main/resources/static/" + image.getName()));
+                    arr.add(IOUtils.toByteArray(in));
+                }
 
-        try{
-
-            InputStream in = FileUtils.openInputStream(new File("src/main/resources/static/" + photo + "." +suf));
-            return new ResponseEntity(IOUtils.toByteArray(in), HttpStatus.OK);
+                return new ResponseObject(arr, 1);
 
 
+            } catch (Exception e) {
 
-        } catch (Exception e){
+                return new ResponseObject(null, 2);
 
-            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
-
+            }
         }
+        return new ResponseObject(null,3);
     }
 
 }

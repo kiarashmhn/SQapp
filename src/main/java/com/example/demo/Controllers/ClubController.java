@@ -86,16 +86,21 @@ public class ClubController {
     public @ResponseBody ResponseObject getOwner(@PathVariable String username){
         return new ResponseObject(UserService.findByUserName(username),1);
     }
-    @PostMapping("/images")
-    public ResponseObject uploadPhoto(@RequestParam("photo") MultipartFile multipartFile){
-        if (multipartFile.isEmpty()) {
-            return new ResponseObject(null,7);
+    @PostMapping("/images/{username}/{password}")
+    public ResponseObject uploadPhoto(@RequestParam("photo") MultipartFile multipartFile,@PathVariable String username,@PathVariable String password) {
+        User user1 = UserService.findByUserName(username);
+        if (user1.getPassWord().equals(password)) {
+            if (multipartFile.isEmpty()) {
+                return new ResponseObject(null, 7);
+            }
+            String s = imageService.savePhoto(multipartFile,user1);
+            if (s == null) {
+                return new ResponseObject(null, 8);
+            }
+            return new ResponseObject(s, 1);
         }
-        String s= imageService.savePhoto(multipartFile);
-        if(s==null){
-            return new ResponseObject(null,8);
-        }
-        return new ResponseObject(s,1);
+        else
+            return new ResponseObject(null, 2);
     }
     @GetMapping("/images/{photo}.{suf}")
     public ResponseEntity<?> downloadPostPhoto(@PathVariable("photo") String photo, @PathVariable("suf") String suf) throws IOException {

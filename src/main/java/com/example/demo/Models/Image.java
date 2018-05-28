@@ -14,6 +14,7 @@ public class Image {
     @SequenceGenerator(name = "image_seq", sequenceName = "image_seq")
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "image_seq")
     private int id;
+    @Lob
     private byte[] imageBytes;
 
 

@@ -2,6 +2,7 @@ package com.example.demo.Models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "clubs")
@@ -39,9 +40,9 @@ public class Club {
 
     private double rate = 0;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Image.class)
     @JoinColumn(name = "image_fk")
-    private ArrayList<Image> imageArray = new ArrayList<>();
+    private List<Image> imageArray = new ArrayList<>();
     @Transient
     private ArrayList<String> imagesString = new ArrayList<>();
 
@@ -207,11 +208,11 @@ public class Club {
         this.rate = rate;
     }
 
-    public ArrayList<Image> getImageArray() {
+    public List<Image> getImageArray() {
         return imageArray;
     }
 
-    public void setImageArray(ArrayList<Image> imageArray) {
+    public void setImageArray(List<Image> imageArray) {
         this.imageArray = imageArray;
     }
 

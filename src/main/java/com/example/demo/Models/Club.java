@@ -45,7 +45,6 @@ public class Club {
     @Transient
     private ArrayList<String> imagesString = new ArrayList<>();
 
-
     //    private Plan plan;
 
 

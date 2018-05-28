@@ -39,7 +39,9 @@ public class Club {
 
     private double rate = 0;
 
-    private ArrayList<Integer> images= new ArrayList<Integer>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_fk")
+    private ArrayList<Image> images= new ArrayList<>();
 
 
     //    private Plan plan;
@@ -194,13 +196,15 @@ public class Club {
         this.rate = rate;
     }
 
-    public ArrayList<Integer> getImages() {
+    public ArrayList<Image> getImages() {
         return images;
     }
 
-    public void setImages(ArrayList<Integer>images) {
+    public void setImages(ArrayList<Image> images) {
         this.images = images;
     }
+
+
 
     /*public Plan getPlan() {
         return plan;

@@ -40,22 +40,22 @@ public class Club {
 
     private double rate = 0;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Image.class)
+    /*@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Image.class)
     @JoinColumn(name = "image_fk")
     private List<Image> imageArray = new ArrayList<>();
     @Transient
-    private ArrayList<String> imagesString = new ArrayList<>();
+    private ArrayList<String> images = new ArrayList<>();*/
 
     //    private Plan plan;
 
 
-    public ArrayList<String> getImagesString() {
-        return imagesString;
+    /*public ArrayList<String> getImages() {
+        return images;
     }
 
-    public void setImagesString(ArrayList<String> imagesString) {
-        this.imagesString = imagesString;
-    }
+    public void setImages(ArrayList<String> images) {
+        this.images = images;
+    }*/
 
     public Boolean getVerified() {
         return isVerified;
@@ -207,13 +207,13 @@ public class Club {
         this.rate = rate;
     }
 
-    public List<Image> getImageArray() {
+    /*public List<Image> getImageArray() {
         return imageArray;
     }
 
     public void setImageArray(List<Image> imageArray) {
         this.imageArray = imageArray;
-    }
+    }*/
 
 
 

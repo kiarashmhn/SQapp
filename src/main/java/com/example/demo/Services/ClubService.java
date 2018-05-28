@@ -47,26 +47,20 @@ public class ClubService {
     public void updateClub(Club club,User user){
         /*Optional<Club> club1 = clubRepository.findById(club.getId());
         club1.*/
-        Iterable<Club> clubs = clubRepository.findAll();
-        for (Club x:clubs) {
-            if (x.getId().equals(club.getId())) {
-                x.setOpeningTime(club.getOpeningTime());
-                x.setClosingTime(club.getClosingTime());
-                x.setType(club.getType());
-                x.setTags(club.getTags());
-                x.setImageArray(StringToImage(club.getImagesString()));
+        Club x = user.getClub();
+        x.setOpeningTime(club.getOpeningTime());
+        x.setClosingTime(club.getClosingTime());
+        x.setType(club.getType());
+        x.setTags(club.getTags());
+        //x.setImageArray(StringToImage(club.getImages()));
 //                x.setImageArray(club.getImageArray());
 //                x.setPlan(club.getPlan());
-                x.setVerified(true);
-                user.setClub(x);
-                userRepository.save(user);
-                //clubRepository.save(x);
-            }
-
-        }
+        x.setVerified(true);
+        user.setClub(x);
+        userRepository.save(user);
     }
 
-    private ArrayList<Image> StringToImage(ArrayList<String> images){
+    /*private ArrayList<Image> StringToImage(ArrayList<String> images){
         ArrayList<Image> imageArrayList = new ArrayList<>();
         for (String imageString : images) {
             byte[] imageByte = Base64.decodeBase64(imageString);
@@ -75,6 +69,6 @@ public class ClubService {
             imageArrayList.add(image);
         }
         return imageArrayList;
-    }
+    }*/
 
 }

@@ -1,12 +1,23 @@
 package com.example.demo.Controllers;
 
 import com.example.demo.Models.Club;
+import com.example.demo.Models.Image;
 import com.example.demo.Models.ResponseObject;
 import com.example.demo.Models.User;
 import com.example.demo.Services.ClubService;
+import com.example.demo.Services.ImageService;
 import com.example.demo.Services.UserService;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 @RestController
 
@@ -16,10 +27,13 @@ public class ClubController {
     private ClubService clubService;
     @Autowired
     private UserService UserService;
+    @Autowired
+    ImageService imageService;
 
     public ClubController(ClubService clubService,UserService UserService){
         this.clubService = clubService;
         this.UserService = UserService;
+        this.imageService = imageService;
     }
 
     @GetMapping("/clubs")
@@ -72,4 +86,32 @@ public class ClubController {
     public @ResponseBody ResponseObject getOwner(@PathVariable String username){
         return new ResponseObject(UserService.findByUserName(username),1);
     }
+    @PostMapping("/images")
+    public ResponseObject uploadPhoto(@RequestParam("photo") MultipartFile multipartFile){
+        if (multipartFile.isEmpty()) {
+            return new ResponseObject(null,7);
+        }
+        String s= imageService.savePhoto(multipartFile);
+        if(s==null){
+            return new ResponseObject(null,8);
+        }
+        return new ResponseObject(s,1);
+    }
+    @GetMapping("/images/{photo}.{suf}")
+    public ResponseEntity<?> downloadPostPhoto(@PathVariable("photo") String photo, @PathVariable("suf") String suf) throws IOException {
+
+        try{
+
+            InputStream in = FileUtils.openInputStream(new File("src/main/resources/static/" + photo + "." +suf));
+            return new ResponseEntity(IOUtils.toByteArray(in), HttpStatus.OK);
+
+
+
+        } catch (Exception e){
+
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+
+        }
+    }
+
 }

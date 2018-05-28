@@ -1,10 +1,15 @@
 package com.example.demo.Services;
 
 import com.example.demo.Models.Club;
+import com.example.demo.Models.Image;
 import com.example.demo.Models.User;
 import com.example.demo.Repositories.ClubRepository;
 import com.example.demo.Repositories.UserRepository;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+
 
 @Service
 public class ClubService {
@@ -49,7 +54,8 @@ public class ClubService {
                 x.setClosingTime(club.getClosingTime());
                 x.setType(club.getType());
                 x.setTags(club.getTags());
-                x.setImages(club.getImages());
+                x.setImageArray(StringToImage(club.getImagesString()));
+//                x.setImageArray(club.getImageArray());
 //                x.setPlan(club.getPlan());
                 x.setVerified(true);
                 user.setClub(x);
@@ -58,7 +64,17 @@ public class ClubService {
             }
 
         }
+    }
 
+    private ArrayList<Image> StringToImage(ArrayList<String> images){
+        ArrayList<Image> imageArrayList = new ArrayList<>();
+        for (String imageString : images) {
+            byte[] imageByte = Base64.decodeBase64(imageString);
+            Image image = new Image();
+            image.setImageBytes(imageByte);
+            imageArrayList.add(image);
+        }
+        return imageArrayList;
     }
 
 }

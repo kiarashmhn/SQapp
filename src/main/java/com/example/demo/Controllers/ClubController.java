@@ -6,6 +6,7 @@ import com.example.demo.Models.User;
 import com.example.demo.Services.ClubService;
 import com.example.demo.Services.ImageService;
 import com.example.demo.Services.UserService;
+import com.example.demo.security.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,7 +33,7 @@ public class ClubController {
     public @ResponseBody ResponseObject login(@RequestBody User user){
         User user1 = UserService.findByUserName(user.getUserName());
         try{
-        if(user1.getPassWord().equals(user.getPassWord())){
+        if(MD5.getMD5(user1.getPassWord()).equals(MD5.getMD5(user.getPassWord()))){
             return new ResponseObject(null,1);
         }
         return new ResponseObject(null,2);}
@@ -64,7 +65,7 @@ public class ClubController {
     public @ResponseBody ResponseObject registerClub(@PathVariable String password,@RequestBody Club club){
         User user1 = UserService.findByUserName(club.getOwnerUserName());
         try{
-        if(user1.getPassWord().equals(password) && user1.getClub().equals(null)){
+        if(MD5.getMD5(user1.getPassWord()).equals(MD5.getMD5(password)) && user1.getClub() == null){
             try{
             clubService.createClub(club,user1);
             return new ResponseObject(null,1);
@@ -82,7 +83,7 @@ public class ClubController {
     public @ResponseBody ResponseObject updateClub(@PathVariable String password,@RequestBody Club club){
         User user1 = UserService.findByUserName(club.getOwnerUserName());
         try {
-            if (user1.getPassWord().equals(password) && !user1.getClub().equals(null) && !user1.getClub().getVerified()) {
+            if (MD5.getMD5(user1.getPassWord()).equals(MD5.getMD5(password)) && user1.getClub() != null && !user1.getClub().getVerified()) {
                 try {
                     clubService.updateClub(club, user1);
                     return new ResponseObject(null, 1);
@@ -97,9 +98,9 @@ public class ClubController {
         }
     }
     @PostMapping("/users")
-    public @ResponseBody ResponseObject createOwner(@RequestBody User user){
+    public @ResponseBody ResponseObject createOwner(@RequestBody User user) throws Exception{
         User user1 = UserService.findByUserName(user.getUserName());
-        if (user1.equals(null)){
+        if (user1 == null){
             UserService.createUser(user);
             return new ResponseObject(null,1);}
         else
@@ -110,7 +111,7 @@ public class ClubController {
     public @ResponseBody ResponseObject getOwner(@PathVariable String username,@PathVariable String password){
         User user1 = UserService.findByUserName(username);
         try {
-            if (user1.getPassWord().equals(password)) {
+            if (MD5.getMD5(user1.getPassWord()).equals(MD5.getMD5(password))) {
                 return new ResponseObject(UserService.findByUserName(username), 1);
             } else
                 return new ResponseObject(null, 2);
@@ -123,7 +124,7 @@ public class ClubController {
     public ResponseObject uploadPhoto(@RequestParam("photo") MultipartFile multipartFile,@PathVariable String username,@PathVariable String password) {
         User user1 = UserService.findByUserName(username);
         try {
-            if (user1.getPassWord().equals(password)) {
+            if (MD5.getMD5(user1.getPassWord()).equals(MD5.getMD5(password))) {
                 if (multipartFile.isEmpty()) {
                     return new ResponseObject(null, 7);
                 }

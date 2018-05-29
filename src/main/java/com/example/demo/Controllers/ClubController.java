@@ -31,24 +31,40 @@ public class ClubController {
     @PostMapping("/users/login")
     public @ResponseBody ResponseObject login(@RequestBody User user){
         User user1 = UserService.findByUserName(user.getUserName());
+        try{
         if(user1.getPassWord().equals(user.getPassWord())){
             return new ResponseObject(null,1);
         }
-        return new ResponseObject(null,2);
+        return new ResponseObject(null,2);}
+        catch (Exception e){
+            return new ResponseObject(null,3);
+        }
     }
     @GetMapping("/clubs")
     public @ResponseBody ResponseObject findAllClubs(){
-        return new ResponseObject(clubService.findAll(),1);
+        try {
+            return new ResponseObject(clubService.findAll(), 1);
+        }
+        catch (Exception e){
+            return new ResponseObject(null,2);
+        }
     }
     @GetMapping("/clubs/{name}")
     public @ResponseBody ResponseObject findClub(@PathVariable String name){
-        return new ResponseObject(clubService.findClubByName(name),1);
+        try {
+            return new ResponseObject(clubService.findClubByName(name),1);
+        }
+        catch(Exception e){
+            return new ResponseObject(null,2);
+        }
+
     }
 
     @PostMapping("/clubs/{password}")
     public @ResponseBody ResponseObject registerClub(@PathVariable String password,@RequestBody Club club){
         User user1 = UserService.findByUserName(club.getOwnerUserName());
-        if(user1.getPassWord().equals(password)){
+        try{
+        if(user1.getPassWord().equals(password) && user1.getClub().equals(null)){
             try{
             clubService.createClub(club,user1);
             return new ResponseObject(null,1);
@@ -57,46 +73,71 @@ public class ClubController {
             return new ResponseObject(null,2);
         }}
         else
-            return new ResponseObject(null,3);
+            return new ResponseObject(null,3);}
+        catch(Exception e){
+            return new ResponseObject(null,2);
+        }
     }
     @PutMapping("/clubs/{password}")
     public @ResponseBody ResponseObject updateClub(@PathVariable String password,@RequestBody Club club){
         User user1 = UserService.findByUserName(club.getOwnerUserName());
-        if(user1.getPassWord().equals(password)){
-        try{
-            clubService.updateClub(club,user1);
-            return new ResponseObject(null,1);
+        try {
+            if (user1.getPassWord().equals(password) && !user1.getClub().equals(null) && !user1.getClub().getVerified()) {
+                try {
+                    clubService.updateClub(club, user1);
+                    return new ResponseObject(null, 1);
+                } catch (NullPointerException e) {
+                    return new ResponseObject(null, 2);
+                }
+            } else
+                return new ResponseObject(null, 3);
         }
-        catch (NullPointerException e){
+        catch (Exception e){
             return new ResponseObject(null,2);
-        }}
-        else
-            return new ResponseObject(null,3);
+        }
     }
     @PostMapping("/users")
     public @ResponseBody ResponseObject createOwner(@RequestBody User user){
-        UserService.createUser(user);
-        return new ResponseObject(null,1);
+        User user1 = UserService.findByUserName(user.getUserName());
+        if (user1.equals(null)){
+            UserService.createUser(user);
+            return new ResponseObject(null,1);}
+        else
+            return new ResponseObject(null,2);
+
     }
-    @GetMapping("/users/{username}")
-    public @ResponseBody ResponseObject getOwner(@PathVariable String username){
-        return new ResponseObject(UserService.findByUserName(username),1);
+    @GetMapping("/users/{username}/{password}")
+    public @ResponseBody ResponseObject getOwner(@PathVariable String username,@PathVariable String password){
+        User user1 = UserService.findByUserName(username);
+        try {
+            if (user1.getPassWord().equals(password)) {
+                return new ResponseObject(UserService.findByUserName(username), 1);
+            } else
+                return new ResponseObject(null, 2);
+        }
+        catch (Exception e){
+            return new ResponseObject(null,3);
+        }
     }
     @PostMapping("/images/{username}/{password}")
     public ResponseObject uploadPhoto(@RequestParam("photo") MultipartFile multipartFile,@PathVariable String username,@PathVariable String password) {
         User user1 = UserService.findByUserName(username);
-        if (user1.getPassWord().equals(password)) {
-            if (multipartFile.isEmpty()) {
-                return new ResponseObject(null, 7);
-            }
-            String s = imageService.savePhoto(multipartFile,user1);
-            if (s == null) {
-                return new ResponseObject(null, 8);
-            }
-            return new ResponseObject(s, 1);
+        try {
+            if (user1.getPassWord().equals(password)) {
+                if (multipartFile.isEmpty()) {
+                    return new ResponseObject(null, 7);
+                }
+                String s = imageService.savePhoto(multipartFile, user1);
+                if (s == null) {
+                    return new ResponseObject(null, 8);
+                }
+                return new ResponseObject(s, 1);
+            } else
+                return new ResponseObject(null, 2);
         }
-        else
-            return new ResponseObject(null, 2);
+        catch (Exception e){
+            return new ResponseObject(null,2);
+        }
     }
     @GetMapping("/clubs/tags")
     private ResponseObject getTags(){

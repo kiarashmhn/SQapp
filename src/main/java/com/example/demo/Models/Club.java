@@ -64,8 +64,6 @@ public class Club {
     public void setTags(List<String> tags) {
         this.tags = tags;
     }
-    //    private Plan plan;
-
 
     public List<Image> getImages() {
         return images;
@@ -86,14 +84,6 @@ public class Club {
 
     private Boolean isVerified = false;
 
-    /*public Club(String name,String address,String price,double rate,int image){
-        this.address = address;
-        this.name = name;
-        this.price = price;
-        this.rate = rate;
-        this.image = image;
-
-    }*/
     public Club(String name, String owner, String telePhoneNumber, String cellPhoneNumber, String address , String ownerUserName , Double latitude, Double longtitude){
         this.name = name;
         this.owner = owner;
@@ -107,7 +97,6 @@ public class Club {
     }
     public Club(){
     }
-
 
     public String getOwnerUserName() {
         return ownerUserName;

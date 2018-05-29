@@ -34,8 +34,6 @@ public class Club {
 
     private Double longtitude = 0.0;
 
-    private ArrayList<String>tags = new ArrayList<String>();
-
     private String price = "";
 
     private double rate = 0;
@@ -44,6 +42,28 @@ public class Club {
     @JoinColumn(name = "image_fk")
     private List<Image> images = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "tag_fk")
+    private List<Tag> tagList = new ArrayList<>();
+
+    @Transient
+    private List<String> tags = new ArrayList<>();
+
+    public List<Tag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(List<Tag> tagList) {
+        this.tagList = tagList;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
     //    private Plan plan;
 
 
@@ -179,14 +199,6 @@ public class Club {
 
     public void setType(int type) {
         this.type = type;
-    }
-
-    public ArrayList<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(ArrayList<String> tags) {
-        this.tags = tags;
     }
 
     public String getPrice() {

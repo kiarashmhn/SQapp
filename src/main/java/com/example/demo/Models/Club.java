@@ -217,23 +217,4 @@ public class Club {
         this.rate = rate;
     }
 
-
-    /*public List<Image> getImageArray() {
-        return imageArray;
-    }
-
-    public void setImageArray(List<Image> imageArray) {
-        this.imageArray = imageArray;
-    }*/
-
-
-
-    /*public Plan getPlan() {
-        return plan;
-    }
-
-    public void setPlan(Plan plan) {
-        this.plan = plan;
-    }*/
-
 }

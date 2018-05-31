@@ -42,6 +42,7 @@ public class ClubService {
         x.setType(club.getType());
         x.setTagList(createTagArray(club.getTags()));
         x.setVerified(true);
+        x.setTags(club.getTags());
         user.setClub(x);
         userRepository.save(user);
     }

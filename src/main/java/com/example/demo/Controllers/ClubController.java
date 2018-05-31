@@ -22,9 +22,9 @@ public class ClubController {
     @Autowired
     private UserService UserService;
     @Autowired
-    ImageService imageService;
+    private ImageService imageService;
 
-    public ClubController(ClubService clubService,UserService UserService){
+    public ClubController(ClubService clubService,UserService UserService,ImageService imageService){
         this.clubService = clubService;
         this.UserService = UserService;
         this.imageService = imageService;

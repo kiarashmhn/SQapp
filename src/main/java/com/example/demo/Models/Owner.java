@@ -3,11 +3,11 @@ package com.example.demo.Models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "owners")
+public class Owner {
     @Id
-    @SequenceGenerator(name = "user_seq",sequenceName = "USER_SEQ")
-    @GeneratedValue(generator = "user_seq",strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "owner_seq",sequenceName = "OWNER_SEQ")
+    @GeneratedValue(generator = "owner_seq",strategy = GenerationType.AUTO)
     private Long id;
     private String name = "";
     private String userName = "";
@@ -60,12 +60,12 @@ public class User {
         this.club = club;
     }
 
-    public User(String name, String userName, String passWord, String email) {
+    public Owner(String name, String userName, String passWord, String email) {
         this.name = name;
         this.userName = userName;
         this.passWord = passWord;
         this.email = email;
     }
-    public User(){
+    public Owner(){
     }
 }

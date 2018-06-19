@@ -37,7 +37,6 @@ public class Receipt {
     public String getClubName() {
         return clubName;
     }
-
     public void setClubName(String clubName) {
         this.clubName = clubName;
     }

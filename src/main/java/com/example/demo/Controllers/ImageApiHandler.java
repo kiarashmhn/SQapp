@@ -4,7 +4,7 @@ import com.example.demo.Models.Owner;
 import com.example.demo.Models.ResponseObject;
 import com.example.demo.Services.ImageService;
 import com.example.demo.Services.OwnerService;
-import com.example.demo.security.MD5;
+import com.example.demo.Security.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,11 +22,12 @@ public class ImageApiHandler {
         this.ownerService = ownerService;
     }
 
-    @PostMapping("/images/{username}/{password}")
+    @PostMapping("/{username}/{password}")
     public ResponseObject uploadPhoto(@RequestParam("photo") MultipartFile multipartFile,@PathVariable String username,@PathVariable String password) {
         Owner user1 = ownerService.findByUserName(username);
         try {
-            if (user1.getPassWord().equals(MD5.getMD5(password))) {
+            //if (user1.getPassWord().equals(MD5.getMD5(password))) {
+            if (user1.getPassWord().equals(password)) {
                 if (multipartFile.isEmpty()) {
                     return new ResponseObject(null, 7);
                 }

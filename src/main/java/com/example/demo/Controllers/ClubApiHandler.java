@@ -6,7 +6,7 @@ import com.example.demo.Models.ResponseObject;
 import com.example.demo.Services.ClubService;
 import com.example.demo.Services.ImageService;
 import com.example.demo.Services.OwnerService;
-import com.example.demo.security.MD5;
+import com.example.demo.Security.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -49,7 +49,8 @@ public class ClubApiHandler {
     public @ResponseBody ResponseObject registerClub(@PathVariable String password,@RequestBody Club club){
         Owner user1 = ownerService.findByUserName(club.getOwnerUserName());
         try{
-            if(user1.getPassWord().equals(MD5.getMD5(password)) && user1.getClub() == null){
+            //if(user1.getPassWord().equals(MD5.getMD5(password)) && user1.getClub() == null){
+            if(user1.getPassWord().equals(password)&&user1.getClub()==null){
                 try{
                     clubService.createClub(club,user1);
                     return new ResponseObject(null,1);
@@ -67,7 +68,8 @@ public class ClubApiHandler {
     public @ResponseBody ResponseObject updateClub(@PathVariable String password,@RequestBody Club club){
         Owner user1 = ownerService.findByUserName(club.getOwnerUserName());
         try {
-            if (user1.getPassWord().equals(MD5.getMD5(password)) && user1.getClub() != null && !user1.getClub().getVerified()) {
+            //if (user1.getPassWord().equals(MD5.getMD5(password)) && user1.getClub() != null && !user1.getClub().getVerified()) {
+            if (user1.getPassWord().equals(password) && user1.getClub() != null && !user1.getClub().getVerified()) {
                 try {
                     clubService.updateClub(club, user1);
                     return new ResponseObject(null, 1);

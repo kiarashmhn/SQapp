@@ -35,7 +35,8 @@ public class ImageService {
             List<Image> images = club.getImages();
             images.add(photo);
             club.setImages(images);
-            ownerRepository.save(owner);
+            ownerRepository.save(owner
+            );
             return str;
         }
         catch (IOException e){

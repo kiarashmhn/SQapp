@@ -2,7 +2,7 @@ package com.example.demo.Services;
 
 import com.example.demo.Models.Owner;
 import com.example.demo.Repositories.OwnerRepository;
-import com.example.demo.security.MD5;
+import com.example.demo.Security.MD5;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +18,9 @@ public class OwnerService {
         return users;
     }
     public void createOwner(Owner owner) throws Exception{
-        Owner owner1 = new Owner(owner.getName(),owner.getUserName(), MD5.getMD5(owner.getPassWord()),owner.getEmail());
+        //save md5
+        //Owner owner1 = new Owner(owner.getName(),owner.getUserName(), MD5.getMD5(owner.getPassWord()),owner.getEmail());
+        Owner owner1 = new Owner(owner.getName(),owner.getUserName(), owner.getPassWord(),owner.getEmail());
         ownerRepository.save(owner1);
     }
     public Boolean checkPassWord(String userName,String password){ // no MD5, because it doesn't use

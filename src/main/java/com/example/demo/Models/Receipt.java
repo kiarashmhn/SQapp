@@ -2,7 +2,6 @@ package com.example.demo.Models;
 import javax.persistence.*;
 @Entity
 @Table(name = "reciept")
-
 public class Receipt {
     private int price;
     private String date;

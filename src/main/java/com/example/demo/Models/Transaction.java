@@ -2,9 +2,7 @@ package com.example.demo.Models;
 
 import javax.persistence.*;
 
-/**
- * Created by Kiarash23 on 6/28/2018.
- */
+
 @Entity
 @Table
 public class Transaction {

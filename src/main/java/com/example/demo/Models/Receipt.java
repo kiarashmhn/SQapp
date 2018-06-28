@@ -51,4 +51,12 @@ public class Receipt {
     public void setClubAdress(String clubAdress) {
         this.clubAddress = clubAdress;
     }
+
+    public String getClubAddress() {
+        return clubAddress;
+    }
+
+    public void setClubAddress(String clubAddress) {
+        this.clubAddress = clubAddress;
+    }
 }

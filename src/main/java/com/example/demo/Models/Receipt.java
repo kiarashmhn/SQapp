@@ -1,13 +1,17 @@
 package com.example.demo.Models;
 import javax.persistence.*;
 @Entity
-@Table(name = "reciept")
+@Table(name = "receipt")
 public class Receipt {
+    @Id
+    @SequenceGenerator(name = "receipt_seq", sequenceName = "RECEIPT_SEQ")
+    @GeneratedValue(generator ="receipt_seq" ,strategy = GenerationType.AUTO)
+    private int id;
     private int price;
     private String date;
     private String time;
     private String clubName;
-    private String clubAdress;
+    private String clubAddress;
 
     public int getPrice() {
         return price;
@@ -41,10 +45,10 @@ public class Receipt {
     }
 
     public String getClubAdress() {
-        return clubAdress;
+        return clubAddress;
     }
 
     public void setClubAdress(String clubAdress) {
-        this.clubAdress = clubAdress;
+        this.clubAddress = clubAdress;
     }
 }

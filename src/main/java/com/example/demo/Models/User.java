@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
+
     @Id
     @SequenceGenerator(name = "user_seq",sequenceName = "USER_SEQ")
     @GeneratedValue(generator = "user_seq",strategy = GenerationType.AUTO)

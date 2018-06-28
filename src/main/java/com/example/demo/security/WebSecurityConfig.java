@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
 
         web.ignoring()
-                .antMatchers("/api/owners/sign-up");
+                .antMatchers("/api/owners/**","/api/users/sign-up");
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -65,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().and()
                 // restricting access to authenticated users
                 .authorizeRequests()
-                //.antMatchers("/api/owners/sign-up").permitAll()
+                .antMatchers("/api/owners/").permitAll()
                 .anyRequest().authenticated();
     }
 }

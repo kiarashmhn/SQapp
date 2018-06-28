@@ -38,13 +38,13 @@ public class  OwnerApiHandler {
             return new ResponseObject(null,1);}
         else
             return new ResponseObject(null,2);
-
     }
     @GetMapping("/{username}/{password}")
     public @ResponseBody ResponseObject getOwner(@PathVariable String username,@PathVariable String password){
         Owner user1 = ownerService.findByUserName(username);
         try {
-            if (user1.getPassWord().equals(MD5.getMD5(password))) {
+            //user1.getPassWord().equals(MD5.getMD5(password))
+            if (user1.getPassWord().equals(password)) {
                 return new ResponseObject(ownerService.findByUserName(username), 1);
             } else
                 return new ResponseObject(null, 2);

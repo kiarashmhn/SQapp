@@ -1,7 +1,7 @@
 package com.example.demo.Models;
 import javax.persistence.*;
 @Entity
-@Table(name = "receipt")
+@Table
 public class Receipt {
     @Id
     @SequenceGenerator(name = "receipt_seq", sequenceName = "RECEIPT_SEQ")

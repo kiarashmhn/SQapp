@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -17,7 +18,12 @@ public class User implements UserDetails {
     private String userName = "";
     private String passWord = "";
     private String email = "";
-
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name = "receip_fk")
+    private List<Receipt> receiptList;
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "transaction_fk")
+    private List<Transaction> transaction;
     public User(String name, String userName, String passWord, String email) {
         this.name = name;
         this.userName = userName;
@@ -96,5 +102,21 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Receipt> getReceiptList() {
+        return receiptList;
+    }
+
+    public void setReceiptList(List<Receipt> receiptList) {
+        this.receiptList = receiptList;
+    }
+
+    public List<Transaction> getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(List<Transaction> transaction) {
+        this.transaction = transaction;
     }
 }

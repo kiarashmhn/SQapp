@@ -15,7 +15,7 @@ public class UserApiHandler {
     @Autowired
     private UserService userService;
 
-    public UserApiHandler(UserService UserService){
+    public UserApiHandler(UserService UserService) {
         this.userService = UserService;
     }
 
@@ -34,23 +34,44 @@ public class UserApiHandler {
         }
     }*/
     @PostMapping("/sign-up")
-    public @ResponseBody ResponseObject createOwner(@RequestBody User user) throws Exception{
+    public @ResponseBody
+    ResponseObject createuser(@RequestBody User user) throws Exception {
         User user1 = userService.findByUserName(user.getUserName());
-        if (user1 == null){
+        if (user1 == null) {
             userService.createUser(user);
-            return new ResponseObject(null,1);}
-        else
-            return new ResponseObject(null,2);
+            return new ResponseObject(null, 1);
+        } else
+            return new ResponseObject(null, 2);
     }
+
     @GetMapping("/{username}")
-    public @ResponseBody ResponseObject getUser(@PathVariable String username){
+    public @ResponseBody
+    ResponseObject getUser(@PathVariable String username) {
         try {
             User user1 = userService.findByUserName(username);
-            return new ResponseObject(user1,1);
-        }
-        catch (Exception e){
-            return new ResponseObject(null,3);
+            return new ResponseObject(user1, 1);
+        } catch (Exception e) {
+            return new ResponseObject(null, 3);
         }
     }
+
+    @PutMapping("")
+    public @ResponseBody
+    ResponseObject updateUser(User user) {
+
+        try {
+            User user1 = userService.findByUserName(user.getUsername());
+            try {
+                userService.updateUser(user, user1);
+            } catch (Exception e) {
+                return new ResponseObject(null, 2);
+            }
+        } catch (Exception e) {
+            return new ResponseObject(null, 3);
+        }
+return new ResponseObject(null,1);
+    }
+
+
 
 }

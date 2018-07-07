@@ -44,7 +44,7 @@ public class Receipt {
         this.clubName = clubName;
     }
 
-    public String getClubAdress() {
+    public String getClubAdress(String address) {
         return clubAddress;
     }
 

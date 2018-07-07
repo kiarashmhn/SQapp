@@ -52,7 +52,7 @@ public class UserApiHandler {
         }
     }*/
     @PostMapping("/sign-up")
-    public @ResponseBody ResponseObject createUser(@RequestBody User user) throws Exception{
+    public @ResponseBody ResponseObject createOwner(@RequestBody User user) throws Exception{
         User user1 = userService.findByUserName(user.getUserName());
         if (user1 == null){
             userService.createUser(user);
@@ -60,7 +60,7 @@ public class UserApiHandler {
         else
             return new ResponseObject(null,2);
     }
-    @GetMapping("")
+    @GetMapping("/{username}")
     public @ResponseBody ResponseObject getUser(Principal principal){
         try {
             User user1 = userService.findByUserName(principal.getName());

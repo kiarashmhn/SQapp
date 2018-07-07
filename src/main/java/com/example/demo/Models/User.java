@@ -19,11 +19,12 @@ public class User implements UserDetails {
     private String userName = "";
     private String passWord = "";
     private String email = "";
+    private Double credit=0.0;
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "receipt_fk")
+    @JoinColumn(name = "user_receipt_fk")
     private List<Receipt> receiptList;
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "transaction_fk")
+    @JoinColumn(name = "user_transaction_fk")
     private List<Transaction> transaction;
     public User(String name, String userName, String passWord, String email) {
         this.name = name;
@@ -119,5 +120,12 @@ public class User implements UserDetails {
 
     public void setTransaction(List<Transaction> transaction) {
         this.transaction = transaction;
+    }
+    public Double getCredit() {
+        return credit;
+    }
+
+    public void setCredit(Double credit) {
+        this.credit = credit;
     }
 }

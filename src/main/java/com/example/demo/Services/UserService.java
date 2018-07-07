@@ -1,10 +1,18 @@
 package com.example.demo.Services;
 
-import com.example.demo.Models.User;
+import com.example.demo.Models.*;
 import com.example.demo.Repositories.OwnerRepository;
 import com.example.demo.Repositories.UserRepository;
 import com.example.demo.Security.MD5;
 import org.springframework.stereotype.Service;
+
+import javax.jws.soap.SOAPBinding;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.List;
 
 @Service
 
@@ -55,5 +63,34 @@ public class UserService {
         if(user.getTransaction()!=null)
         user1.setTransaction(user.getTransaction());
         userRepository.save(user1);
+    }
+    public void createReceipt(Plan plan,Club club,User user){
+        Receipt receipt=new Receipt();
+        receipt.setPrice(plan.getPrice());
+        receipt.setClubAdress(club.getAddress());
+        receipt.setClubName(club.getName());
+        receipt.setDate(plan.getDate());
+        receipt.setTime(plan.getTime());
+        List list = user.getReceiptList();
+        list.add(receipt);
+        user.setReceiptList(list);
+        userRepository.save(user);
+    }
+    public void createTransaction(Plan plan, User user){
+        Transaction transaction=new Transaction();
+        transaction.setDate(java.time.LocalDate.now());
+        transaction.setTime(java.time.LocalTime.now());
+         Double c= user.getCredit();
+        int n=plan.getPrice();
+        int m=transaction.getBalance();
+        user.setCredit(c-n);
+        transaction.setBalance(m-n);
+        transaction.setTransactionMoney(plan.getPrice());
+      List list = user.getTransaction();
+        list.add(transaction);
+        user.setTransaction(list);
+        userRepository.save(user);
+
+
     }
 }

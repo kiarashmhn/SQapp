@@ -25,9 +25,11 @@ public class Owner implements UserDetails {
     private Club club = null;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,targetEntity = Receipt.class)
+    @JoinColumn(name = "owner_receipt_fk")
     private List<Receipt> receipts = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,targetEntity = Transaction.class)
+    @JoinColumn(name = "owner_transaction_fk")
     private List<Transaction> transactions = new ArrayList<>();
 
     public Long getId() {

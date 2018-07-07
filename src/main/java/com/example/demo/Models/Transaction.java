@@ -1,6 +1,8 @@
 package com.example.demo.Models;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 @Entity
@@ -10,32 +12,32 @@ public class Transaction {
     @SequenceGenerator(name = "transaction_seq", sequenceName = "TRANSACTION_SEQ")
     @GeneratedValue(generator ="transaction_seq" ,strategy = GenerationType.AUTO)
     private int id;
-    private int debit;
-    private int date;
-    private int time;
+    private int balance;
+    private LocalDate date;
+    private LocalTime time;
     private int transactionMoney;
 
-    public int getDebit() {
-        return debit;
+    public int getBalance() {
+        return balance;
     }
 
-    public void setDebit(int debit) {
-        this.debit = debit;
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 
-    public int getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public int getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 

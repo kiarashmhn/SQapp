@@ -52,7 +52,7 @@ public class UserApiHandler {
         }
     }*/
     @PostMapping("/sign-up")
-    public @ResponseBody ResponseObject createOwner(@RequestBody User user) throws Exception{
+    public @ResponseBody ResponseObject createUser(@RequestBody User user) throws Exception{
         User user1 = userService.findByUserName(user.getUserName());
         if (user1 == null){
             userService.createUser(user);
@@ -60,7 +60,7 @@ public class UserApiHandler {
         else
             return new ResponseObject(null,2);
     }
-    @GetMapping("/{username}")
+    @GetMapping("")
     public @ResponseBody ResponseObject getUser(Principal principal){
         try {
             User user1 = userService.findByUserName(principal.getName());
@@ -69,6 +69,21 @@ public class UserApiHandler {
         catch (Exception e){
             return new ResponseObject(null,3);
         }
+    }
+    @PutMapping("")
+    public @ResponseBody ResponseObject updateUser(User user) {
+
+        try {
+            User user1 = userService.findByUserName(user.getUsername());
+            try {
+                userService.updateUser(user, user1);
+            } catch (Exception e) {
+                return new ResponseObject(null, 2);
+            }
+        } catch (Exception e) {
+            return new ResponseObject(null, 3);
+        }
+        return new ResponseObject(null,1);
     }
     /*@PutMapping("/{username}")
     public @ResponseBody ResponseObject updateUser(@PathVariable String username){

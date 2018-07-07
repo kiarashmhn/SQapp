@@ -54,7 +54,6 @@ public class UserService {
         user1.setReceiptList(user.getReceiptList());
         if(user.getTransaction()!=null)
         user1.setTransaction(user.getTransaction());
-
         userRepository.save(user1);
     }
 }

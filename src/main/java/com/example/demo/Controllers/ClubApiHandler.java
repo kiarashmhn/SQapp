@@ -24,6 +24,7 @@ public class ClubApiHandler {
         this.clubService = clubService;
         this.ownerService = OwnerService;
         Club club = new Club("a","a","a","a","a","a",0.1,0.2);
+        club.setVerified(true);
         Owner owner = new Owner("kia","kia","123","kia@kia.com");
         try {
             ownerService.createOwner(owner);

@@ -32,6 +32,7 @@ public class ClubService {
     }
     public void createClub(Club club,Owner owner){
         Club club1 = new Club(club.getName(),club.getOwner(),club.getTelePhoneNumber(),club.getCellPhoneNumber(),club.getAddress(),club.getOwnerUserName(),club.getLatitude(),club.getLongtitude());
+        club1.setVerified(club.getVerified());
         owner.setClub(club1);
         ownerRepository.save(owner);
     }

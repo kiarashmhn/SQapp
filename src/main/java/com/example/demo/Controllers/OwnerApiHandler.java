@@ -2,6 +2,7 @@ package com.example.demo.Controllers;
 
 import com.example.demo.Models.Owner;
 import com.example.demo.Models.ResponseObject;
+import com.example.demo.Models.User;
 import com.example.demo.Services.OwnerService;
 import com.example.demo.Security.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,11 @@ public class  OwnerApiHandler {
         try{
             //if(user1.getPassWord().equals(MD5.getMD5(user.getPassWord()))){
             if(user1.getPassWord().equals(user.getPassWord())){
-                return new ResponseObject(null,1);
+                return new ResponseObject(user1,1);
             }
-            return new ResponseObject(null,2);}
+            return new ResponseObject(user1,2);}
         catch (Exception e){
-            return new ResponseObject(null,3);
+            return new ResponseObject(user1,3);
         }
     }
     @PostMapping("/sign-up")
@@ -53,5 +54,6 @@ public class  OwnerApiHandler {
             return new ResponseObject(null,3);
         }
     }
+
 
 }

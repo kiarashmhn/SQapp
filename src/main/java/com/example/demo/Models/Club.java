@@ -40,7 +40,7 @@ public class Club {
 
     private Boolean isVerified = false;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL,targetEntity = Plan.class)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,targetEntity = Plan.class)
     @JoinColumn(name = "plan_fk")
     private List<Plan> weeklyPlan = new ArrayList<>();
 

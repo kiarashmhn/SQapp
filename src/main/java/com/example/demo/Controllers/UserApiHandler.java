@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
+
 import java.security.Principal;
 
 @RestController
@@ -51,7 +52,7 @@ public class UserApiHandler {
         }
     }*/
     @PostMapping("/sign-up")
-    public @ResponseBody ResponseObject createUser(@RequestBody User user) throws Exception{
+    public @ResponseBody ResponseObject createOwner(@RequestBody User user) throws Exception{
         User user1 = userService.findByUserName(user.getUserName());
         if (user1 == null){
             userService.createUser(user);
@@ -59,9 +60,8 @@ public class UserApiHandler {
         else
             return new ResponseObject(null,2);
     }
-    @GetMapping("")
+    @GetMapping("/{username}")
     public @ResponseBody ResponseObject getUser(Principal principal){
-        //checkResourceOwner(principal);
         try {
             User user1 = userService.findByUserName(principal.getName());
             return new ResponseObject(user1,1);
@@ -72,6 +72,5 @@ public class UserApiHandler {
     }
     /*@PutMapping("/{username}")
     public @ResponseBody ResponseObject updateUser(@PathVariable String username){
-
-    }*/
+}*/
 }

@@ -45,4 +45,16 @@ public class UserService {
                     return x;
         return null;
     }
+    public void updateUser(User user,User user1){
+        if(user.getEmail()!=null)
+        user1.setEmail(user.getEmail());
+        if(user.getName()!=null)
+        user1.setName(user.getName());
+        if (user.getReceiptList()!=null)
+        user1.setReceiptList(user.getReceiptList());
+        if(user.getTransaction()!=null)
+        user1.setTransaction(user.getTransaction());
+
+        userRepository.save(user1);
+    }
 }

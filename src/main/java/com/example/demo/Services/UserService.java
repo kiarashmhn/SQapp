@@ -64,8 +64,9 @@ public class UserService {
         user1.setTransaction(user.getTransaction());
         userRepository.save(user1);
     }
-    public void createReceipt(Plan plan, Club club, User user){
-        Receipt receipt=new Receipt();
+    public void createReceipt(int planId,int userId,int ownerId){
+
+        /*Receipt receipt=new Receipt();
         receipt.setPrice(plan.getPrice());
         receipt.setClubAdress(club.getAddress());
         receipt.setClubName(club.getName());
@@ -74,10 +75,10 @@ public class UserService {
         List list = user.getReceiptList();
         list.add(receipt);
         user.setReceiptList(list);
-        userRepository.save(user);
+        userRepository.save(user);*/
     }
-    public void createTransaction(Plan plan, User user){
-        Transaction transaction=new Transaction();
+    public void createTransaction(int planId,int userId){
+        /*Transaction transaction=new Transaction();
         transaction.setDate(java.time.LocalDate.now());
         transaction.setTime(java.time.LocalTime.now());
          Double c= user.getCredit();
@@ -89,7 +90,7 @@ public class UserService {
       List list = user.getTransaction();
         list.add(transaction);
         user.setTransaction(list);
-        userRepository.save(user);
+        userRepository.save(user);*/
 
 
     }

@@ -4,7 +4,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "owners")
@@ -17,8 +19,16 @@ public class Owner implements UserDetails {
     private String userName = "";
     private String passWord = "";
     private String email = "";
+
+    private Double credit = 0.0;
     @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Club club = null;
+
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,targetEntity = Receipt.class)
+    private List<Receipt> receipts = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,targetEntity = Transaction.class)
+    private List<Transaction> transactions = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -62,6 +72,30 @@ public class Owner implements UserDetails {
 
     public void setClub(Club club) {
         this.club = club;
+    }
+
+    public List<Receipt> getReceipts() {
+        return receipts;
+    }
+
+    public void setReceipts(List<Receipt> receipts) {
+        this.receipts = receipts;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
+    public Double getCredit() {
+        return credit;
+    }
+
+    public void setCredit(Double credit) {
+        this.credit = credit;
     }
 
     public Owner(String name, String userName, String passWord, String email) {

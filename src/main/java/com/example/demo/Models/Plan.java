@@ -14,6 +14,7 @@ public class Plan {
     private String date;
     private String time;
     private int status = 0;
+    private int day;
     // 0 : available
     // 1 : reserved
     // 2 : not available
@@ -25,6 +26,18 @@ public class Plan {
         this.status = status;
     }
     public Plan(){}
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
 
     public int getId() {
         return id;

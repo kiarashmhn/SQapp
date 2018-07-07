@@ -2,6 +2,7 @@ package com.example.demo.Services;
 
 import com.example.demo.Models.Club;
 import com.example.demo.Models.Owner;
+import com.example.demo.Models.Plan;
 import com.example.demo.Models.Tag;
 import com.example.demo.Repositories.ClubRepository;
 import com.example.demo.Repositories.OwnerRepository;
@@ -44,6 +45,7 @@ public class ClubService {
         x.setTagList(createTagArray(club.getTags()));
         x.setVerified(true);
         x.setTags(club.getTags());
+        x.setWeeklyPlan(createPlanList());
         owner.setClub(x);
         ownerRepository.save(owner);
     }
@@ -58,4 +60,28 @@ public class ClubService {
         return tagList;
     }
 
+    public List<Plan> createPlanList(){
+        int id = 1;
+        int year = 1397;
+        int month = 04;
+        int dayOfDate = 01;
+        int hour = 8;
+        int day = 0;
+        List list = new ArrayList();
+        for (int i = 0 ; i<3 ; i++){
+            for (int j = 0 ; j<5 ; j++){
+                Plan plan = new Plan();
+                plan.setId(id);
+                plan.setDate(year + "/" + month + "/" + dayOfDate);
+                plan.setTime(hour + "-" + hour+2);
+                plan.setDay(day);
+                plan.setPrice(3000);
+                list.add(plan);
+                hour+=2;
+            }
+            dayOfDate++;
+            day++;
+        }
+        return list;
+    }
 }

@@ -20,7 +20,7 @@ public class User implements UserDetails {
     private String passWord = "";
     private String email = "";
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "receip_fk")
+    @JoinColumn(name = "receipt_fk")
     private List<Receipt> receiptList;
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "transaction_fk")

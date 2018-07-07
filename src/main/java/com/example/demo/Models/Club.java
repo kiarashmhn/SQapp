@@ -38,6 +38,12 @@ public class Club {
 
     private double rate = 0;
 
+    private Boolean isVerified = false;
+
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL,targetEntity = Plan.class)
+    @JoinColumn(name = "plan_fk")
+    private List<Plan> weeklyPlan = new ArrayList<>();
+
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Image.class)
     @JoinColumn(name = "image_fk")
     private List<Image> images = new ArrayList<>();
@@ -48,41 +54,6 @@ public class Club {
 
     @Transient
     private List<String> tags = new ArrayList<>();
-
-    public List<Tag> getTagList() {
-        return tagList;
-    }
-
-    public void setTagList(List<Tag> tagList) {
-        this.tagList = tagList;
-    }
-
-    public List<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
-
-    public List<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
-    }
-
-    public Boolean getVerified() {
-        return isVerified;
-    }
-
-
-    public void setVerified(Boolean verified) {
-        isVerified = verified;
-    }
-
-    private Boolean isVerified = false;
 
     public Club(String name, String owner, String telePhoneNumber, String cellPhoneNumber, String address , String ownerUserName , Double latitude, Double longtitude){
         this.name = name;
@@ -204,6 +175,46 @@ public class Club {
 
     public void setRate(double rate) {
         this.rate = rate;
+    }
+
+    public List<Plan> getWeeklyPlan() {
+        return weeklyPlan;
+    }
+
+    public void setWeeklyPlan(List<Plan> weeklyPlan) {
+        this.weeklyPlan = weeklyPlan;
+    }
+
+    public List<Tag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(List<Tag> tagList) {
+        this.tagList = tagList;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
+    public Boolean getVerified() {
+        return isVerified;
+    }
+
+    public void setVerified(Boolean verified) {
+        isVerified = verified;
     }
 
 }

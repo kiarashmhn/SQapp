@@ -23,6 +23,14 @@ public class ClubApiHandler {
     public ClubApiHandler(ClubService clubService, OwnerService OwnerService, ImageService imageService){
         this.clubService = clubService;
         this.ownerService = OwnerService;
+        Club club = new Club("a","a","a","a","a","a",0.1,0.2);
+        Owner owner = new Owner("kia","kia","123","kia@kia.com");
+        try {
+            ownerService.createOwner(owner);
+            clubService.createClub(club,owner);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @GetMapping("")

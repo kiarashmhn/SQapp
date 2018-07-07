@@ -8,10 +8,7 @@ import com.example.demo.Services.ImageService;
 import com.example.demo.Services.OwnerService;
 import com.example.demo.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("/api/reserve")
 public class ReserveApiHandler {
@@ -24,12 +21,12 @@ public class ReserveApiHandler {
         this.ownerService = ownerService;
     }
 
-    @PostMapping("")
-    public @ResponseBody ResponseObject reserve(@RequestBody Owner owner, @RequestBody User user, @RequestBody Plan plan){
-    userService.createReceipt(plan,owner.getClub(),user);
-    userService.createTransaction(plan,user);
-    ownerService.createReceipt(plan,owner.getClub(),user,owner);
-    ownerService.createTransaction(plan,user,owner);
-    return new ResponseObject(null,1);
+    @PostMapping("/{ownerId}/{userId}/{planId}")
+    public @ResponseBody ResponseObject reserve(@PathVariable Owner owner, @PathVariable User user, @PathVariable Plan plan){
+        userService.createReceipt(plan,owner.getClub(),user);
+        userService.createTransaction(plan,user);
+        ownerService.createReceipt(plan,owner.getClub(),user,owner);
+        ownerService.createTransaction(plan,user,owner);
+        return new ResponseObject(null,1);
     }
 }

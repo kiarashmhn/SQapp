@@ -19,7 +19,6 @@ public class Owner implements UserDetails {
     private String userName = "";
     private String passWord = "";
     private String email = "";
-
     private Double credit = 0.0;
     @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Club club = null;

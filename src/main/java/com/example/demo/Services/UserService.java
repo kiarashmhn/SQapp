@@ -64,7 +64,7 @@ public class UserService {
         user1.setTransaction(user.getTransaction());
         userRepository.save(user1);
     }
-    public void createReceipt(Plan plan,Club club,User user){
+    public void createReceipt(Plan plan, Club club, User user){
         Receipt receipt=new Receipt();
         receipt.setPrice(plan.getPrice());
         receipt.setClubAdress(club.getAddress());

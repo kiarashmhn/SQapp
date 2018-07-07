@@ -2,7 +2,6 @@ package com.example.demo.Controllers;
 import com.example.demo.Models.Owner;
 import com.example.demo.Models.ResponseObject;
 import com.example.demo.Models.User;
-import com.example.demo.Security.MD5;
 import com.example.demo.Services.OwnerService;
 import com.example.demo.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

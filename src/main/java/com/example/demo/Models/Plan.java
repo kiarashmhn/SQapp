@@ -3,7 +3,7 @@ package com.example.demo.Models;
 import javax.persistence.*;
 import java.util.ArrayList;
 
-@Entity
+@Entity(name = "plan")
 @Table(name = "plan")
 public class Plan {
     @Id

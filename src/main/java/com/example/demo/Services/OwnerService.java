@@ -5,10 +5,14 @@ import com.example.demo.Repositories.OwnerRepository;
 import com.example.demo.Security.MD5;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
 public class OwnerService {
+    @PersistenceContext
+    EntityManager entityManager;
     private OwnerRepository ownerRepository;
 
     public OwnerService(OwnerRepository ownerRepository) {
@@ -43,7 +47,11 @@ public class OwnerService {
         return null;
     }
 
-    public void createReceipt(Plan plan, Club club, User user, Owner owner) {
+    public void createReceipt(Long ownerId, Long userId, Long planId) {
+        Plan plan = (Plan) entityManager.createQuery("select p from plan p where p.id=:planId").setParameter("planId",planId).getSingleResult();
+        User user = (User) entityManager.createQuery("select u from user u where u.id=:userId").setParameter("userId",userId).getSingleResult();
+        Owner owner = (Owner) entityManager.createQuery("select o from owner o where o.id=:ownerId").setParameter("ownerId",ownerId).getSingleResult();
+        Club club = owner.getClub();
         Receipt receipt = new Receipt();
         receipt.setPrice(plan.getPrice());
         receipt.setClubAdress(club.getAddress());
@@ -56,7 +64,10 @@ public class OwnerService {
         ownerRepository.save(owner);
     }
 
-    public void createTransaction(Plan plan, User user, Owner owner) {
+    public void createTransaction(Long ownerId, Long userId, Long planId) {
+        Plan plan = (Plan) entityManager.createQuery("select p from plan p where p.id=:planId").setParameter("planId",planId).getSingleResult();
+        User user = (User) entityManager.createQuery("select u from user u where u.id=:userId").setParameter("userId",userId).getSingleResult();
+        Owner owner = (Owner) entityManager.createQuery("select o from owner o where o.id=:ownerId").setParameter("ownerId",ownerId).getSingleResult();
         Transaction transaction = new Transaction();
         transaction.setDate(java.time.LocalDate.now());
         transaction.setTime(java.time.LocalTime.now());

@@ -10,7 +10,13 @@ import com.example.demo.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/api/reserve")
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+
+@RestController
+@RequestMapping("/api/reserve")
 public class ReserveApiHandler {
     @Autowired
     private UserService userService;
@@ -22,11 +28,11 @@ public class ReserveApiHandler {
     }
 
     @PostMapping("/{ownerId}/{userId}/{planId}")
-    public @ResponseBody ResponseObject reserve(@PathVariable int ownerId, @PathVariable int userId, @PathVariable int planId){
-        /*userService.createReceipt(planId,ownerId,userId);
-        userService.createTransaction(planId,userId);
-        ownerService.createReceipt(planId,ownerId,userId,ownerId);
-        ownerService.createTransaction(planId,userId,ownerId);*/
+    public @ResponseBody ResponseObject reserve(@PathVariable Long ownerId, @PathVariable Long userId, @PathVariable Long planId){
+        userService.createReceipt(ownerId,userId,planId);
+        userService.createTransaction(ownerId,userId,planId);
+        ownerService.createReceipt(ownerId,userId,planId);
+        ownerService.createTransaction(ownerId,userId,planId);
         return new ResponseObject(null,1);
     }
 }

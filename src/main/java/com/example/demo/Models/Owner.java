@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Entity
+@Entity(name = "owner")
 @Table(name = "owners")
 public class Owner implements UserDetails {
     @Id

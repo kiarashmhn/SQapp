@@ -3,13 +3,13 @@ package com.example.demo.Models;
 import javax.persistence.*;
 import java.util.ArrayList;
 
-@Entity
+@Entity(name = "plan")
 @Table(name = "plan")
 public class Plan {
     @Id
     @SequenceGenerator(name = "plan_seq", sequenceName = "PLAN_SEQ")
     @GeneratedValue(generator ="plan_seq" ,strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     private int price;
     private String date;
     private String time;
@@ -27,7 +27,7 @@ public class Plan {
     }
     public Plan(){}
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -39,7 +39,7 @@ public class Plan {
         this.day = day;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

@@ -7,6 +7,9 @@ import com.example.demo.Security.MD5;
 import org.springframework.stereotype.Service;
 
 import javax.jws.soap.SOAPBinding;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,6 +20,8 @@ import java.util.List;
 @Service
 
 public class UserService {
+    @PersistenceContext
+    EntityManager entityManager;
     private UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -64,9 +69,14 @@ public class UserService {
         user1.setTransaction(user.getTransaction());
         userRepository.save(user1);
     }
-    public void createReceipt(int planId,int userId,int ownerId){
-
-        /*Receipt receipt=new Receipt();
+    public void createReceipt(Long ownerId,Long userId, Long planId){
+        Query query = entityManager.createQuery("select p from plan p where p.id=:planId");
+        query.setParameter("planId",planId);
+        Plan plan = (Plan) query.getSingleResult();
+        Owner owner = (Owner) entityManager.createQuery("select  o from owner o where o.id=:ownerId").setParameter("ownerId",ownerId).getSingleResult();
+        Club club = owner.getClub();
+        User user = (User) entityManager.createQuery("select u from user u where u.id= :userId").setParameter("userId",userId).getSingleResult();
+        Receipt receipt=new Receipt();
         receipt.setPrice(plan.getPrice());
         receipt.setClubAdress(club.getAddress());
         receipt.setClubName(club.getName());
@@ -75,22 +85,28 @@ public class UserService {
         List list = user.getReceiptList();
         list.add(receipt);
         user.setReceiptList(list);
-        userRepository.save(user);*/
+        userRepository.save(user);
     }
-    public void createTransaction(int planId,int userId){
-        /*Transaction transaction=new Transaction();
+    public void createTransaction(Long ownerId,Long userId,Long planId){
+        Query query = entityManager.createQuery("select p from plan p where p.id=:planId");
+        query.setParameter("planId",planId);
+        Plan plan = (Plan) query.getSingleResult();
+        Owner owner = (Owner) entityManager.createQuery("select  o from owner o where o.id=:ownerId").setParameter("ownerId",ownerId).getSingleResult();
+        Club club = owner.getClub();
+        User user = (User) entityManager.createQuery("select u from user u where u.id= :userId").setParameter("userId",userId).getSingleResult();
+        Transaction transaction=new Transaction();
         transaction.setDate(java.time.LocalDate.now());
         transaction.setTime(java.time.LocalTime.now());
-         Double c= user.getCredit();
+        Double c= user.getCredit();
         int n=plan.getPrice();
         int m=transaction.getBalance();
         user.setCredit(c-n);
         transaction.setBalance(m-n);
         transaction.setTransactionMoney(plan.getPrice());
-      List list = user.getTransaction();
+        List list = user.getTransaction();
         list.add(transaction);
         user.setTransaction(list);
-        userRepository.save(user);*/
+        userRepository.save(user);
 
 
     }

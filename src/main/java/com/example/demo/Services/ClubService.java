@@ -61,10 +61,10 @@ public class ClubService {
     }
 
     public List<Plan> createPlanList(){
-        int id = 1;
+        Long id = Long.valueOf(0);
         int year = 1397;
-        int month = 04;
-        int dayOfDate = 01;
+        int month = 4;
+        int dayOfDate = 1;
         int hour = 8;
         int day = 0;
         List list = new ArrayList();
@@ -73,14 +73,17 @@ public class ClubService {
                 Plan plan = new Plan();
                 plan.setId(id);
                 plan.setDate(year + "/" + month + "/" + dayOfDate);
-                plan.setTime(hour + "-" + hour+2);
+                plan.setTime(hour + "-" + String.valueOf(hour+2));
                 plan.setDay(day);
                 plan.setPrice(3000);
                 list.add(plan);
                 hour+=2;
+                day++;
             }
+            day=0;
+            hour=8;
             dayOfDate++;
-            day++;
+
         }
         return list;
     }

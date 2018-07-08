@@ -1,6 +1,6 @@
 package com.example.demo.Models;
 import javax.persistence.*;
-@Entity
+@Entity(name = "receipt")
 @Table(name = "reciept")
 public class Receipt {
     @Id

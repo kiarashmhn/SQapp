@@ -59,7 +59,7 @@ public class UserApiHandler {
         else
             return new ResponseObject(null,2);
     }
-    @GetMapping("/{username}")
+    @GetMapping("")
     public @ResponseBody ResponseObject getUser(Principal principal){
         try {
             User user1 = userService.findByUserName(principal.getName());

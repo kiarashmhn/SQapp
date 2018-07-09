@@ -58,12 +58,13 @@ public class OwnerService {
         Receipt receipt = new Receipt();
         receipt.setPrice(plan.getPrice());
         receipt.setClubAdress(club.getAddress());
-        receipt.setClubName(owner.getName());
+        receipt.setClubName(club.getName());
         receipt.setDate(plan.getDate());
         receipt.setTime(plan.getTime());
         List list = owner.getReceipts();
         list.add(receipt);
         owner.setReceipts(list);
+        plan.setStatus(1);
         ownerRepository.save(owner);
     }
 

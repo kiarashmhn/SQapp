@@ -25,7 +25,7 @@ public class User implements UserDetails {
     private List<Receipt> receiptList;
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_transaction_fk")
-    private List<Transaction> transaction;
+    private List<Transaction> transactions;
     public User(String name, String userName, String passWord, String email) {
         this.name = name;
         this.userName = userName;
@@ -115,11 +115,11 @@ public class User implements UserDetails {
     }
 
     public List<Transaction> getTransaction() {
-        return transaction;
+        return transactions;
     }
 
     public void setTransaction(List<Transaction> transaction) {
-        this.transaction = transaction;
+        this.transactions = transaction;
     }
     public Double getCredit() {
         return credit;

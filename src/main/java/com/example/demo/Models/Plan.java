@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity(name = "plan")
-@Table(name = "plan")
+@Table(name = "plans")
 public class Plan {
     @Id
     @SequenceGenerator(name = "plan_seq", sequenceName = "PLAN_SEQ")

@@ -64,12 +64,12 @@ public class ClubService {
         Long id = Long.valueOf(0);
         int year = 1397;
         int month = 4;
-        int dayOfDate = 1;
+        int dayOfDate = 19;
         int hour = 8;
-        int day = 0;
+        int day = 3;
         List list = new ArrayList();
         for (int i = 0 ; i<3 ; i++){
-            for (int j = 0 ; j<5 ; j++){
+            for (int j = 0 ; j<4 ; j++){
                 Plan plan = new Plan();
                 plan.setId(id);
                 plan.setDate(year + "/" + month + "/" + dayOfDate);
@@ -77,10 +77,9 @@ public class ClubService {
                 plan.setDay(day);
                 plan.setPrice(3000);
                 list.add(plan);
-                hour+=2;
-                day++;
+                hour+=4;
             }
-            day=0;
+            day++;
             hour=8;
             dayOfDate++;
 

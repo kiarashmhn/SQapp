@@ -12,6 +12,17 @@ public class Receipt {
     private String time;
     private String clubName;
     private String clubAddress;
+    public Receipt(){
+
+    }
+
+    public Receipt(int price, String date, String time, String clubName, String clubAddress) {
+        this.price = price;
+        this.date = date;
+        this.time = time;
+        this.clubName = clubName;
+        this.clubAddress = clubAddress;
+    }
 
     public int getPrice() {
         return price;
@@ -44,11 +55,11 @@ public class Receipt {
         this.clubName = clubName;
     }
 
-    public String getClubAdress(String address) {
+    public String getClubAddress(String address) {
         return clubAddress;
     }
 
-    public void setClubAdress(String clubAdress) {
-        this.clubAddress = clubAdress;
+    public void setClubAddress(String clubAddress) {
+        this.clubAddress = clubAddress;
     }
 }

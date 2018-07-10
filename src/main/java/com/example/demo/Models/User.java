@@ -19,7 +19,7 @@ public class User implements UserDetails {
     private String userName = "";
     private String passWord = "";
     private String email = "";
-    private Double credit=0.0;
+    private Double credit=50000.0;
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_receipt_fk")
     private List<Receipt> receiptList;

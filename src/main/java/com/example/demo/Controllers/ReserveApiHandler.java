@@ -22,12 +22,12 @@ public class ReserveApiHandler {
         this.ownerService = ownerService;
     }
 
-    @PostMapping("/{ownerId}/{userId}/{planId}")
-    public @ResponseBody ResponseObject reserve(@PathVariable Long ownerId,@PathVariable Long userId,@PathVariable Long planId){
-        userService.createReceipt(ownerId,userId,planId);
-        userService.createTransaction(ownerId,userId,planId);
-        ownerService.createReceipt(ownerId,userId,planId);
-        ownerService.createTransaction(ownerId,userId,planId);
+    @PostMapping("/{ownerUserName}/{userId}/{planId}")
+    public @ResponseBody ResponseObject reserve(@PathVariable String ownerUserName,@PathVariable Long userId,@PathVariable Long planId){
+        userService.createReceipt(ownerUserName,userId,planId);
+        userService.createTransaction(ownerUserName,userId,planId);
+        ownerService.createReceipt(ownerUserName,userId,planId);
+        ownerService.createTransaction(ownerUserName,userId,planId);
         return new ResponseObject(null,1);
     }
 }
